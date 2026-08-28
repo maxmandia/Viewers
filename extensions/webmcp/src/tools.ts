@@ -127,14 +127,10 @@ function listSeries(deps: Deps) {
 
 function listMeasurements(deps: Deps) {
   const { measurementService, panelService } = deps.servicesManager.services;
-  try {
-    panelService?.activatePanel(
-      '@ohif/extension-measurement-tracking.panelModule.trackedMeasurements',
-      true
-    );
-  } catch {
-    // Panel is missing in modes that do not load measurement tracking.
-  }
+  panelService?.activatePanel(
+    '@ohif/extension-measurement-tracking.panelModule.trackedMeasurements',
+    true
+  );
   const rows = measurementService?.getMeasurements() || [];
   return {
     measurements: rows.map(row => sanitizeMeasurement(row, deps.ids)),
